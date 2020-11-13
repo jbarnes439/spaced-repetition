@@ -16,26 +16,25 @@ class DashboardRoute extends Component {
 
   async componentDidMount() {
     await LanguageApiService.getLanguage()
-      .then(data => { 
-        this.setState({ 
+      .then(data => {
+        this.setState({
           language: data.language,
           words: data.words,
           total_count: data.language.total_score,
         })
         this.context.setLanguage(data.language)
-        this.context.setWords(data.words)        
+        this.context.setWords(data.words)
       })
       .catch(this.context.setError)
 
   }
 
-  renderUpcomingWords = () => {    
+  renderUpcomingWords = () => {
     if (this.context.words && this.context.words.length > 0) {
-      return this.context.words.map((word) => {      
-      return <WordCard
+      return this.context.words.map((word) => {
+        return <WordCard
           key={word.id}
-          word={word}
-        />
+          word={word} />
       })
     }
   }
@@ -49,9 +48,9 @@ class DashboardRoute extends Component {
         </div>
         <section>
           <h2>Welcome back, ready to learn {this.context.language.name}?</h2>
-          <h4>Bienvenido de nuevo, listo para aprender español?</h4>
+          <Link to='/learn'><button>Start practicing</button></Link>
+          <h3>Words to practice</h3>
         </section>
-
       </div>
     );
   }
@@ -60,14 +59,16 @@ class DashboardRoute extends Component {
     return (
       <div>
         {this.renderDashBoard()}
-        <Link to='/learn'><button>Start Learning</button></Link>
-        <h4>Upcoming words: </h4>
-        {this.renderUpcomingWords()}
+        <section >
+          <ul>
+            {this.renderUpcomingWords()}
+          </ul>
+        </section>
         <section>
-        <h4>Total correct answers: {this.state.total_count}</h4>
-        </section>        
+          <h4>Total correct answers: {this.state.total_count}</h4>
+        </section>
       </div>
-      
+
     );
   }
 }

@@ -43,9 +43,10 @@ class Header extends Component {
       <header>
         <h1>
           <Link to='/'>
-            Spaced repetition
+            Spanglish
           </Link>
         </h1>
+        <h2>The spaced repetition spanish learning app</h2>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

@@ -3,12 +3,12 @@ import './WordCard.css';
 
 const WordCard = (props) => {    
     return (
-        <div className='wordCard'>
+        <li className='wordCard'>
             {/* 'props.word &&' makes sure a word is loaded in state before attempting to render */}
-            <p>{props.word && props.word.original}</p>
-            <p>Correct responses: {props.word && props.word.correct_count}</p>
-            <p>Incorrect responses: {props.word && props.word.incorrect_count}</p>
-        </div>
+            <h4>{props.word && props.word.original}</h4>
+            <p>correct answer count: {props.word && props.word.correct_count}</p>
+            <p>incorrect answer count: {props.word && props.word.incorrect_count}</p>
+        </li>
     )
 }
 
