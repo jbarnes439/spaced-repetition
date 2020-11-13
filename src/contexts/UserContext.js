@@ -6,9 +6,15 @@ import IdleService from '../services/idle-service'
 const UserContext = React.createContext({
   user: {},
   error: null,
+  language: {},
+  totalScore: 0,
+  words: [],
   setError: () => {},
   clearError: () => {},
   setUser: () => {},
+  setLanguage: () => {},
+  setTotalScore: () => {},
+  setWords: () => {},
   processLogin: () => {},
   processLogout: () => {},
 })
@@ -18,7 +24,7 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    const state = { user: {}, error: null }
+    const state = { user: {}, language: "", words: [], error: null }
 
     const jwtPayload = TokenService.parseAuthToken()
 
@@ -38,8 +44,11 @@ export class UserProvider extends Component {
       IdleService.regiserIdleTimerResets()
       TokenService.queueCallbackBeforeExpiry(() => {
         this.fetchRefreshToken()
-      })
+      })               
     }
+    /* soon to be OUTDATED METHOD: if you want to run something after setState just pass
+       a callback after the new state object 
+       this.setState({language} , () => { console.log(this.state.language)}) */
   }
 
   componentWillUnmount() {
@@ -56,8 +65,22 @@ export class UserProvider extends Component {
     this.setState({ error: null })
   }
 
-  setUser = user => {
+  setUser = user => {    
     this.setState({ user })
+  }
+
+// Get user language data in context
+  setLanguage = language => {
+    this.setState({ language })    
+  }
+  
+  incrementTotalCount = () => {
+    let newCount = this.state.language.total_score + 1
+    this.setState({ language: {...this.state.language, total_score: newCount}})
+  }
+
+  setWords = words => {
+    this.setState({ words })
   }
 
   processLogin = authToken => {
@@ -104,12 +127,17 @@ export class UserProvider extends Component {
   render() {
     const value = {
       user: this.state.user,
-      error: this.state.error,
+      language: this.state.language,
+      words: this.state.words,
+      error: this.state.error,      
       setError: this.setError,
       clearError: this.clearError,
       setUser: this.setUser,
+      setWords: this.setWords,
+      setLanguage: this.setLanguage,      
       processLogin: this.processLogin,
       processLogout: this.processLogout,
+      incrementTotalCount: this.incrementTotalCount,
     }
     return (
       <UserContext.Provider value={value}>
