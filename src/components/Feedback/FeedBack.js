@@ -11,7 +11,7 @@ const Feedback = (props) => {
                     The correct translation for {props.prevWord && props.prevWord} was {props.prevAnswer && props.prevAnswer} and you
                     chose {props.prevAnswer && props.prevAnswer}!
                 </p>
-                <button>Try another word!</button>
+                <button onClick={props.nextQuestion}>Try another word!</button>
             </div>
             :
             <div className='wordCard'>
@@ -20,7 +20,7 @@ const Feedback = (props) => {
                     The correct translation for {props.prevWord && props.prevWord}
                     was {props.actualAnswer && props.actualAnswer} and you chose {props.userAnswer && props.userAnswer}!
                 </p>
-                <button>Try another word!</button>
+                <button onClick={props.nextQuestion}>Try another word!</button>
             </div>
     )
 

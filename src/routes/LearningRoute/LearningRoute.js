@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
-import { Link } from 'react-router-dom';
 import LanguageApiService from '../../services/language-api-service';
-import WordCard from '../../components/WordCard/WordCard';
 import Feedback from '../../components/Feedback/FeedBack';
 
 class LearningRoute extends Component {
@@ -67,8 +65,18 @@ class LearningRoute extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleNextQuestionClick = (e) => {
-    
+  handleNextQuestionClick = (e) => {    
+    LanguageApiService.getWordAtHead()
+      .then(data =>
+        this.setState({
+          word: data.nextWord,
+          timesCorrect: data.wordCorrectCount,
+          timesIncorrect: data.wordIncorrectCount,
+          totalScore: data.totalScore,
+          answerSubmitted: false,
+        })
+      )
+      .catch(this.context.setError) 
   }
 
   render() {
@@ -107,13 +115,15 @@ class LearningRoute extends Component {
           correctAnswer={this.state.answeredCorrect}
           prevWord={this.state.prevWord}
           prevAnswer={this.state.answer}
+          nextQuestion={this.handleNextQuestionClick}
            />
            // incorrect user answer feedback
       } return <Feedback 
-        correctAnswer={this.state.answeredCorrect}
-        prevWord={this.state.prevWord}
-        userAnswer={this.state.prevAnswer}
-        actualAnswer={this.state.answer}/>
+          correctAnswer={this.state.answeredCorrect}
+          prevWord={this.state.prevWord}
+          userAnswer={this.state.prevAnswer}
+          actualAnswer={this.state.answer}
+          nextQuestion={this.handleNextQuestionClick}/>
   }
 }
 
