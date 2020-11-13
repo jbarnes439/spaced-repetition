@@ -67,18 +67,7 @@ class LearningRoute extends Component {
   }
 
   handleNextQuestionClick = (e) => { 
-    this.setState({ answerSubmitted: false})   
-    // LanguageApiService.getWordAtHead()
-    //   .then(data =>
-    //     this.setState({
-    //       word: data.nextWord,
-    //       timesCorrect: data.wordCorrectCount,
-    //       timesIncorrect: data.wordIncorrectCount,
-    //       totalScore: data.totalScore,
-    //       answerSubmitted: false,
-    //     })
-    //   )
-    //   .catch(this.context.setError)
+    this.setState({ answerSubmitted: false})    
   }
 
   render() {
