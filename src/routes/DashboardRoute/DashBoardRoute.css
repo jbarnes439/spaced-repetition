@@ -2,7 +2,11 @@
     color: red;
 }
 
+h2 {
+    padding: 10px 10px 10px 10px;
+}
+
 ul {
     list-style-type: none;
-    padding: 0px;
+    padding: 0;
 }

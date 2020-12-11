@@ -3,6 +3,7 @@ import UserContext from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
 import LanguageApiService from '../../services/language-api-service';
 import WordCard from '../../components/WordCard/WordCard';
+import './DashBoardRoute.css';
 
 class DashboardRoute extends Component {
   state = {
@@ -32,13 +33,9 @@ class DashboardRoute extends Component {
   renderUpcomingWords = () => {
     if (this.context.words && this.context.words.length > 0) {
       return this.context.words.map((word) => {
-        return (
-          <li>
-            <WordCard
-              key={word.id}
-              word={word} />
-          </li>
-        )
+        return <WordCard
+          key={word.id}
+          word={word} />
       })
     }
   }
@@ -63,7 +60,7 @@ class DashboardRoute extends Component {
     return (
       <div>
         {this.renderDashBoard()}
-        <section >
+        <section className='words-list'>
           <ul>
             {this.renderUpcomingWords()}
           </ul>
