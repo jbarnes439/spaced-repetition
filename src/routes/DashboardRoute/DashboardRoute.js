@@ -32,9 +32,13 @@ class DashboardRoute extends Component {
   renderUpcomingWords = () => {
     if (this.context.words && this.context.words.length > 0) {
       return this.context.words.map((word) => {
-        return <WordCard
-          key={word.id}
-          word={word} />
+        return (
+          <li>
+            <WordCard
+              key={word.id}
+              word={word} />
+          </li>
+        )
       })
     }
   }
